@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>To Do App</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="todo.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div class="header">
+	<span id="navbutton" onclick="showBar()"><i class="fa fa-bars" style="font-size:1.5vw;"></i></span>
+	<span id="topic">MY <i class="fa fa-tasks"></i> APP</span>
+</div>
+<div class="container" onclick="containFun()">
+	<div id="navbar">
+		<ul>
+			<li>HOME</li>
+			<li>TODO</li>
+			<li>ABOUT</li>
+		</ul>
+	</div>
+	<div class="todo">
+		<div id="searchBar">
+			<input type = "text" id="searchBox" style="padding:0.5vw;width:40%;font-size:1.1vw;" placeholder="Search...">
+			<span id = "searchButton" onclick="act()">SEARCH</span>
+			<span id = "add" onclick="addTask()">+ADD</span>
+		</div>
+		<div id="suggestion"></div>
+		<table id = "content">
+		</table>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.getElementById("searchBox").addEventListener("keyup",function(event){
+	if(event.keyCode===13){
+		event.preventDefault();
+		act();
+	}
+});
+</script>
+</body>
+</html>
