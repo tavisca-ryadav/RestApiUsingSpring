@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface TaskService {
     List<Task> findAllTasks();
-    Task saveTask(Task customer);
-
-    void updateTask(List<Task> tasks);
-
-    void deleteTask(Task task);
+    Task saveTask(Task task);
+    Boolean updateTask(List<Task> tasks);
+    Boolean deleteTask(Task task);
 }

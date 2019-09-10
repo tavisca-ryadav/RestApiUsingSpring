@@ -28,34 +28,25 @@ public class TaskController {
 
     @CrossOrigin
     @PostMapping("/posts")
-    public ResponseEntity saveTask(@RequestBody Task task){
-        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NO_CONTENT);
-        if(task.getTask()!="") {
-            taskService.saveTask(task);
-            responseEntity = new ResponseEntity(HttpStatus.CREATED);
-        }
-        return responseEntity;
+    public ResponseEntity<?> saveTask(@RequestBody Task task){
+        if(!task.getTask().equals(""))
+            return new ResponseEntity<>(taskService.saveTask(task),HttpStatus.CREATED);
+        return new ResponseEntity<>("Empty task is not allowed",HttpStatus.NO_CONTENT);
     }
 
     @CrossOrigin
     @DeleteMapping("/deletes")
-    public ResponseEntity delteTask(@RequestBody Task task){
-        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NO_CONTENT);
-        if(task.getTask()!="") {
-            taskService.deleteTask(task);
-            responseEntity = new ResponseEntity(HttpStatus.OK);
-        }
-        return responseEntity;
+    public ResponseEntity<?> delteTask(@RequestBody Task task){
+        if(!task.getTask().equals("") && taskService.deleteTask(task))
+            return new ResponseEntity<>(task,HttpStatus.OK);
+        return new ResponseEntity<>("Task not found",HttpStatus.NO_CONTENT);
     }
 
     @CrossOrigin
     @PutMapping("/puts")
-    public ResponseEntity updateTask(@RequestBody List<Task> tasks){
-        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
-        if(tasks.get(0).getTask()!="" && tasks.get(1).getTask()!="") {
-            taskService.updateTask(tasks);
-            responseEntity = new ResponseEntity(HttpStatus.OK);
-        }
-        return responseEntity;
+    public ResponseEntity<?> updateTask(@RequestBody List<Task> tasks){
+        if(!tasks.get(0).getTask().equals("") && !tasks.get(1).getTask().equals("") && taskService.updateTask(tasks))
+            return new ResponseEntity<>(tasks.get(1),HttpStatus.OK);
+        return new ResponseEntity<>("Task is empty or not found",HttpStatus.NOT_MODIFIED);
     }
 }

@@ -28,13 +28,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void updateTask(List<Task> tasks) {
+    public Boolean updateTask(List<Task> tasks) {
         String taskToReplace = tasks.get(0).getTask();
         long idToUpdate = 0;
+        Boolean taskUpdated = false;
 
         //find id to update
         for(Task t : taskRepository.findAll()){
             if(t.getTask().equals(taskToReplace)){
+                taskUpdated = true;
                 idToUpdate=t.getId();
                 break;
             }
@@ -43,15 +45,19 @@ public class TaskServiceImpl implements TaskService {
         //Update new task
         tasks.get(1).setId(idToUpdate);
         taskRepository.save(tasks.get(1));
+        return taskUpdated;
     }
 
     @Override
-    public void deleteTask(Task task) {
+    public Boolean deleteTask(Task task) {
+        Boolean taskFound=false;
         for(Task t : taskRepository.findAll()){
             if(t.getTask().equals(task.getTask())){
+                taskFound=true;
                 taskRepository.delete(t);
                 break;
             }
         }
+        return taskFound;
     }
 }
