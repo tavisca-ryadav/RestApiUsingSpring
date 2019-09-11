@@ -3,7 +3,6 @@ package com.example.demo2;
 import com.example.demo2.domain.Task;
 import com.example.demo2.services.TaskService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TaskControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
     @MockBean
     private TaskService taskService;
 

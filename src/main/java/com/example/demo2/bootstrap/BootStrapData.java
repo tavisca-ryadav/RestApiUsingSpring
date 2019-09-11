@@ -5,19 +5,23 @@ import com.example.demo2.repositories.TaskRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Logger;
+
 @Component
 public class BootStrapData implements CommandLineRunner {
 
     private final TaskRepository taskRepository;
 
-    public BootStrapData(TaskRepository customerRepository) {
-        this.taskRepository = customerRepository;
+    public BootStrapData(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
     }
+
+    private Logger logger = Logger.getLogger(String.valueOf(BootStrapData.class));
 
     @Override
     public void run(String... args) throws Exception {
 
-        System.out.println("Loading Tasks");
+        logger.info("Loading Tasks");
 
         Task t1 = new Task();
         t1.setTask("Eat");
@@ -39,7 +43,7 @@ public class BootStrapData implements CommandLineRunner {
         t5.setTask("Repeat");
         taskRepository.save(t5);
 
-        System.out.println("tasks Saved: "+ taskRepository.count());
+        logger.info("tasks Saved: "+ taskRepository.count());
 
     }
 }
